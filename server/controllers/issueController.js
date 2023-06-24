@@ -110,7 +110,7 @@ exports.protectIssue = catchAsync(async (req, res, next) => {
 
   if (helperId) {
     next();
-  } else return next(new AppError("Updates can be given by only Helpers"));
+  } else return next(new AppError("Updates can be given by only Helpers "));
 });
 
 exports.getOneIssue = catchAsync(async (req, res, next) => {
