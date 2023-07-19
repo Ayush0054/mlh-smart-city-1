@@ -20,6 +20,9 @@ const tabs = [
   {
     page: "completed",
     path: "/completed",
+  },{
+    page: "notifications",
+    path: "/notifications",
   },
   {
     page: "profile",

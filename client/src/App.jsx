@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import "./app.css";
 import { useEffect, useState } from "react";
 import { localStorageUser } from "./utils/globalConstants";
+import Notification from "./pages/notification/notification";
 
 function App() {
   const [userData, setUserData] = useState({});
@@ -47,6 +48,7 @@ function App() {
         <Route path='/pending' element={<Pending />} />
         <Route path='/completed' element={<Completed />} />
         <Route path='/issues/:issue' element={<SingleIssue />} />
+        <Route path='/notifications' element={<Notification/>} />
       </Routes>
 
     </div>
