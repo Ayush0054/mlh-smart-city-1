@@ -8,6 +8,7 @@ import "./profile.css";
 
 import { localStorageUser } from "../../utils/globalConstants";
 import HelperModal from "../../components/helperModal/helperModal";
+import Navbar from "../../components/navbar/navbar";
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
@@ -21,6 +22,7 @@ const Profile = () => {
   }, []);
   return (
     <>
+    <Navbar /> 
       {!userData.isHelper ? <HelperModal token={userData.token} /> : null}
       <div className='profile'>
         <div className='profile-img'>

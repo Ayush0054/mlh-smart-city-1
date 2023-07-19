@@ -6,6 +6,7 @@ import { BASE_URL, API } from "../../utils/APIRoutes";
 import { getReadableTime, localStorageUser } from "../../utils/globalConstants";
 import styled from "styled-components";
 import MakeUpdate from "../../components/postUpdate/makeUpdate";
+import Navbar from "../../components/navbar/navbar";
 
 const Section = styled.div`
   /* border: 1px solid red; */
@@ -188,8 +189,11 @@ function SingleIssue() {
   }, []);
 
   return issue ? (
+    <>
+     <Navbar /> 
     <Section>
-      <MakeUpdate token={userData.token} issueId={issueId} />
+    {userData.isHelper ?
+      <MakeUpdate token={userData.token} issueId={issueId} /> : null}
       <SingleIssueCont>
         <IssueDescription>
           <ImageContainer>
@@ -237,6 +241,7 @@ function SingleIssue() {
         </Updates>
       </SingleIssueCont>
     </Section>
+            </>
   ) : (
     <h2>Loading.......Waits!!....</h2>
   );

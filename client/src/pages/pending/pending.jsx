@@ -4,6 +4,7 @@ import "./pending.css";
 
 import React, { useEffect, useState } from "react";
 import Card from "../../components/card/card";
+import Navbar from "../../components/navbar/navbar";
 
 const Pending = () => {
   const [approvedIssues, setApprovedIssues] = useState([]);
@@ -19,6 +20,7 @@ const Pending = () => {
   }, []);
   return (
     <>
+     <Navbar /> 
       <div className='issues'>
         {approvedIssues.map((issue, index) => {
           return <Card key={index} issue={issue} />;

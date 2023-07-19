@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "../button/button.component";
 import Modal from "@mui/material/Modal";
@@ -7,6 +7,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { API, BASE_URL } from "../../utils/APIRoutes";
 import { getHeaders } from "../../utils/helperFunction";
+import { localStorageUser } from "../../utils/globalConstants";
 
 const Section = styled.div`
   margin: 1rem 0 2rem;
@@ -34,7 +35,17 @@ const MakeUpdate = (props) => {
 
   const [updateContent, setUpdateContent] = useState();
   const [updateImages, setUpdateImages] = useState();
+  const [userData, setUserData] = useState({});
 
+  useEffect(() => {
+    async function fetchUserData() {
+      const data = await JSON.parse(localStorage.getItem(localStorageUser));
+      setUserData(data);
+      console.log(data);
+      console.log(userData);
+    }
+    fetchUserData();
+  }, []);
   const postImage = (pics) => {
     console.log(pics);
     if (!pics) return;
@@ -64,25 +75,40 @@ const MakeUpdate = (props) => {
 
   const postIssueUpdate = async (e) => {
     e.preventDefault();
+    try{
 
-    const { data } = await axios.patch(
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${props.token}`,
+        },
+      };
+      const { data } = await axios.patch(
       `${BASE_URL}${API}/issue/${props.issueId}`,
       {
         updateContent,
         updateImages,
-      },
-      {
-        headers: getHeaders(props.token),
       }
-    );
-    console.log(data);
-    if (data.status === "success") {
-      window.location.reload();
-    }
+      ,config
+      // ,
+      // {
+        //   headers: getHeaders(props.token),
+        // }
+        );
+        console.log(data);
+        if (data.status === "success") {
+          window.location.reload();
+        }
+      }catch(error){
+        console.log(error);
+      }
   };
 
   return (
-    <Section>
+    <>
+    {userData.isHelper?
+      
+      <Section>
       <Button onClick={handleOpen}>Make Update</Button>
       <Modal
         open={open}
@@ -92,23 +118,28 @@ const MakeUpdate = (props) => {
         <Box sx={style} className={classes.modal}>
           <h1>Give an update to this Issue</h1>
           <form onSubmit={postIssueUpdate}>
-            <h3>Update Description</h3>
-            <textarea
-              name='updateContent'
-              placeholder='Specify the Update on the issue'
-              value={updateContent}
-              onChange={(e) => setUpdateContent(e.target.value)}
-            />
-            <h3>Upload Proof Image</h3>
-            <div>
-              <input type='file' accept='image/*' onChange={(e) => postImage(e.target.files)} />
-            </div>
-            <button type='submit'>Post Update</button>
+          <h3>Update Description</h3>
+          <textarea
+          name='updateContent'
+          placeholder='Specify the Update on the issue'
+          value={updateContent}
+          onChange={(e) => setUpdateContent(e.target.value)}
+          />
+          <h3>Upload Proof Image</h3>
+          <div>
+          <input type='file' accept='image/*' onChange={(e) => postImage(e.target.files)} />
+          </div>
+          <button type='submit'>Post Update</button>
           </form>
-        </Box>
-      </Modal>
-    </Section>
-  );
-};
+          </Box>
+          </Modal>
+          </Section>
+          :null
+        
+      }
 
+      </>
+          );
+        };
+        
 export default MakeUpdate;

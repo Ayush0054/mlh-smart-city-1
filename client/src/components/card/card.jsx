@@ -29,6 +29,7 @@ function Card(props) {
       }
     );
     console.log(data);
+     console.log(BASE_URL);
     if (data.status === "success") {
       window.location.reload();
     }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API, BASE_URL } from "../../utils/APIRoutes";
 import Card from "../../components/card/card";
+import Navbar from "../../components/navbar/navbar";
 
 const Completed = () => {
   const [completedIssues, setCompletedIssues] = useState([]);
@@ -17,6 +18,7 @@ const Completed = () => {
 
   return (
     <>
+     <Navbar /> 
       <div className='issues'>
         {completedIssues.map((issue, index) => {
           return <Card issue={issue} key={index} />;

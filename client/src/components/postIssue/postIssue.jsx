@@ -97,7 +97,7 @@ const PostIssue = () => {
     );
     console.log(data);
     if (data.status === "success") {
-      //   window.location.reload();
+        window.location.reload();
     }
   };
 
