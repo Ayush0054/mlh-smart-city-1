@@ -45,3 +45,11 @@
 .logo img {
   height: 1.1rem;
 }
+.logout-btn{
+
+ padding: 10px;
+}
+.logout-btn:hover{
+
+    background-color: rgb(147, 96, 241);
+ }

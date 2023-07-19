@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { localStorageUser } from "../../utils/globalConstants";
 import "./navbar.css";
-
+import { useNavigate } from "react-router-dom";
 const tabs = [
   {
     page: "home",
@@ -25,8 +26,13 @@ const tabs = [
     path: "/profile",
   },
 ];
-
 function Navbar() {
+  const navigate = useNavigate();
+  const lougout = () => {
+    localStorage.removeItem(localStorageUser);
+    navigate("/login");
+  };
+
   const [selectedTab, setSelectedTab] = useState(null);
 
   return (
@@ -56,6 +62,7 @@ function Navbar() {
             );
           })}
         </ul>
+        <button className="logout-btn" onClick={lougout}>Logout</button>
       </div>
     </div>
   );
