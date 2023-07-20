@@ -50,7 +50,7 @@ const PostNotification = (props) => {
 
     return (
         <Section>
-            <Button onClick={handleOpen}>Post Notification</Button>
+            <button onClick={handleOpen} >Post Notification</button>
             <Modal
                 open={open}
                 onClose={handleClose}
